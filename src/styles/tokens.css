@@ -74,6 +74,37 @@
   --social-linkedin: #0a66c2;
   --social-linkedin-glow: rgba(10, 102, 194, 0.55);
 
+  /* Home hero story [Derived, design.md §6.23]: translucent ivory panel for copy over the 3D scene */
+  --bg-glass: rgba(251, 249, 245, 0.9);
+  --bg-glass-dark: rgba(18, 16, 12, 0.72);
+
+  /* 3D scene palette [Derived, design.md §6.23]. Read at runtime by src/three; never used for UI. */
+  --scene-render: #f3eee4;
+  --scene-stone: #b8a990;
+  --scene-stone-dark: #8c7e69;
+  --scene-concrete: #c8c1b4;
+  --scene-earth: #a08868;
+  --scene-oak: #b88b5c;
+  --scene-timber: #8b6b4b;
+  --scene-fabric: #ddd4c4;
+  --scene-fabric-dark: #6f675a;
+  --scene-metal-roof: #3b3933;
+  --scene-glass: #c9d6d4;
+  --scene-grass: #a9ae87;
+  --scene-grass-deep: #838d63;
+  --scene-foliage: #6e7c54;
+  --scene-bark: #5c4b3b;
+  --scene-water: #86c8c9;
+  --scene-water-deep: #2f8e96;
+  --scene-window-glow: #ffcf8f;
+  --scene-sky-morning: #eef0ec;
+  --scene-sky-golden: #f0dcc2;
+  --scene-sun-morning: #e8edf4;
+  --scene-sun-noon: #fff5e6;
+  --scene-sun-golden: #ffc078;
+  --scene-sun-dusk: #c7865a;
+  --scene-hemi-ground: #b4a487;
+
   /* Typography */
   --font-display: 'Cormorant Garamond', 'Playfair Display', serif;
   --font-sans: 'Plus Jakarta Sans', Manrope, sans-serif;

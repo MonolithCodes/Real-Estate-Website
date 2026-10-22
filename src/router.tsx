@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 import { RootLayout } from './components/layout/RootLayout'
+import type { RouteHandle } from './lib/routeHandle'
 import { NotFound } from './pages/NotFound'
 
 /** Route table from design.md §2.1. Pages are code-split with route-level lazy loading. */
@@ -20,7 +21,7 @@ const routes: RouteObject[] = [
   {
     element: <RootLayout />,
     children: [
-      { index: true, ...lazyPage(() => import('./pages/Home'), 'Home') },
+      { index: true, handle: { lightHero: true } satisfies RouteHandle, ...lazyPage(() => import('./pages/Home'), 'Home') },
       { path: '/destinations', ...lazyPage(() => import('./pages/Destinations'), 'Destinations') },
       { path: '/destinations/:slug', ...lazyPage(() => import('./pages/DestinationDetail'), 'DestinationDetail') },
       { path: '/opportunities', ...lazyPage(() => import('./pages/Opportunities'), 'Opportunities') },

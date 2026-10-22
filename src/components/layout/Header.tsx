@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useMatches } from 'react-router-dom'
 import { ctaNav, primaryNav } from '../../data/nav'
 import { useScrolled } from '../../hooks/useScrolled'
 import { startScroll, stopScroll } from '../../lib/lenis'
+import { isLightHeroRoute } from '../../lib/routeHandle'
 import { Button } from '../ui/Button'
 import { CloseIcon, MenuIcon } from '../ui/icons'
 import { MobileMenu } from './MobileMenu'
@@ -15,6 +16,8 @@ const slug = (label: string) => label.toLowerCase().replace(/\s+/g, '-')
 export function Header() {
   const scrolled = useScrolled(40)
   const { pathname } = useLocation()
+  // Routes whose hero is light (the home 3D story) keep the solid header from the top.
+  const lightHero = isLightHeroRoute(useMatches())
 
   // The menu is "open" only for the route it was opened on, so navigating closes it without an effect.
   const [openedOn, setOpenedOn] = useState<string | null>(null)
@@ -39,7 +42,7 @@ export function Header() {
   // otherwise become the containing block for the menu's `position: fixed` and collapse it.
   return (
     <>
-      <header className={scrolled || open ? 'header header--solid' : 'header theme-dark'} data-testid="site-header">
+      <header className={scrolled || open || lightHero ? 'header header--solid' : 'header theme-dark'} data-testid="site-header">
         <div className="container header__inner">
           <SiteLogo />
 

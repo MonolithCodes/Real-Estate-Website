@@ -1,0 +1,484 @@
+/* Home 3D hero story — design.md §6.23 [Derived]. Tokens only. */
+
+/* ---------- Pinned story ---------- */
+.story {
+  --story-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2 + var(--gutter)));
+  position: relative;
+  /* Pinned length plus one viewport for the stage itself. */
+  height: calc((var(--story-length, 600) + 100) * 1svh);
+  background: var(--story-bg, var(--bg-base));
+}
+
+.story__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--story-bg, var(--bg-base));
+}
+
+.story__canvas {
+  position: absolute;
+  inset: 0;
+  /* Own stacking context: drei <Html> chips stay beneath the copy and the rail. */
+  z-index: 0;
+  transform-origin: 50% 40%;
+  will-change: opacity, transform;
+}
+.story__canvas > div {
+  position: absolute !important;
+  inset: 0;
+}
+
+.story__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--dur-slow) var(--ease-ui);
+}
+.story__poster[data-hidden='true'] {
+  opacity: 0;
+}
+
+.story__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.story__seam {
+  position: absolute;
+  inset: auto 0 0;
+  height: 38%;
+  background: linear-gradient(to bottom, transparent, var(--bg-base) 85%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Stage cards ---------- */
+.story__card {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  width: min(27rem, calc(100% - 2 * var(--gutter)));
+  padding: var(--space-8);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+.story__card[data-active='true'] {
+  pointer-events: auto;
+}
+.story__card[data-side='start'] {
+  left: var(--story-inline);
+}
+.story__card[data-side='end'] {
+  right: var(--story-inline);
+}
+
+.story__card-title {
+  max-width: 22ch;
+}
+.story__card-body {
+  max-width: var(--measure-text);
+}
+
+/* Hero: no panel, a soft ivory scrim keeps the headline legible over the blueprint lines. */
+.story__card--hero {
+  width: min(40rem, calc(100% - 2 * var(--gutter)));
+  gap: var(--space-5);
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  opacity: 1;
+}
+.story__card--hero::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--space-16)) calc(-1 * var(--space-20));
+  z-index: -1;
+  background: radial-gradient(closest-side, var(--bg-base) 45%, transparent);
+  opacity: 0.9;
+}
+.story__card--hero > * {
+  animation: story-rise var(--dur-slow) var(--ease-lux) both;
+}
+.story__card--hero > :nth-child(1) {
+  animation-delay: 150ms;
+}
+.story__card--hero > :nth-child(2) {
+  animation-delay: 250ms;
+}
+.story__card--hero > :nth-child(3) {
+  animation-delay: 850ms;
+}
+.story__card--hero > :nth-child(4) {
+  animation-delay: 1100ms;
+}
+.story__title-line {
+  display: block;
+}
+
+/* Finale: centred on the dusk scene, in the dark scope. */
+.story__card--reveal {
+  top: auto;
+  bottom: 10svh;
+  left: 50%;
+  translate: -50% 0;
+  align-items: center;
+  width: min(44rem, calc(100% - 2 * var(--gutter)));
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  background: var(--bg-glass-dark);
+}
+.story__finale-title {
+  max-width: 18ch;
+}
+
+/* Stage 05 stats */
+.story__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-6);
+  width: 100%;
+  margin: 0;
+}
+.story__stat dt {
+  margin-bottom: var(--space-1);
+}
+.story__stat dd {
+  margin: 0;
+}
+.story__stat-value {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 300;
+  line-height: var(--lh-tight);
+  color: var(--accent-strong);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Scroll cue */
+.story__cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-8);
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.story__cue-line {
+  position: relative;
+  width: 1px;
+  height: 3rem;
+  overflow: hidden;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+}
+.story__cue-line::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--gold-bright);
+  top: 0;
+  animation: story-cue var(--dur-hero) var(--ease-lux) infinite;
+}
+
+/* ---------- Progress rail ---------- */
+.story__rail-wrap {
+  position: absolute;
+  top: 50%;
+  right: var(--space-6);
+  translate: 0 -50%;
+}
+.story__rail {
+  position: relative;
+}
+.story__rail-track {
+  position: absolute;
+  top: calc(var(--hit-min) / 2);
+  bottom: calc(var(--hit-min) / 2);
+  right: calc(var(--space-3) + 4px);
+  width: 1px;
+  background: var(--border-section);
+}
+.story__rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.story__rail-item {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--hit-min);
+  min-width: var(--hit-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-ui);
+}
+.story__rail-dot {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-full);
+  background: var(--story-bg, var(--bg-base));
+  transition:
+    transform var(--dur-fast) var(--ease-lux),
+    background-color var(--dur-fast) var(--ease-ui),
+    box-shadow var(--dur-fast) var(--ease-ui);
+}
+.story__rail-item[aria-current='step'] {
+  color: var(--accent-strong);
+}
+.story__rail-item[aria-current='step'] .story__rail-dot {
+  background: var(--gold-bright);
+  transform: scale(1.35);
+  box-shadow: var(--glow-gold);
+}
+@media (hover: hover) and (pointer: fine) {
+  .story__rail-item:hover {
+    color: var(--text-primary);
+  }
+}
+
+/* ---------- Spec chips (drei <Html>) ---------- */
+.story-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-3);
+  white-space: nowrap;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-card-hover);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  color: var(--text-primary);
+  animation: story-chip-in var(--dur-base) var(--ease-lux) both;
+}
+.story-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--gold-bright);
+  box-shadow: var(--glow-gold);
+}
+.story-chip__label {
+  font-weight: 600;
+}
+.story-chip__detail {
+  color: var(--text-muted);
+}
+
+/* ---------- Debug (?debug=1) ---------- */
+.story__debug {
+  position: absolute;
+  top: calc(var(--header-h) + var(--space-4));
+  left: var(--space-4);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--bg-overlay);
+  color: var(--text-on-dark);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-snug);
+  pointer-events: none;
+}
+
+/* Poster capture: only the canvas. */
+.story[data-poster='true'] .story__overlay,
+.story[data-poster='true'] .story__rail-wrap {
+  display: none;
+}
+
+/* ---------- Desktop: keep end-side cards clear of the rail ---------- */
+@media (min-width: 64em) {
+  .story__card[data-side='end'] {
+    right: calc(var(--story-inline) + 7rem);
+  }
+}
+
+/* ---------- Mobile + portrait tablet: house in the upper ~55%, copy in the lower ~45% ---------- */
+/* Keep in sync with MOBILE_QUERY in storyContent.ts. */
+@media (max-width: 47.99em), (orientation: portrait) and (max-width: 63.99em) {
+  .story__card,
+  .story__card[data-side='start'],
+  .story__card[data-side='end'],
+  .story__card--reveal {
+    top: auto;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: calc(var(--mobilebar-h) + var(--space-4) + env(safe-area-inset-bottom));
+    translate: none;
+    width: auto;
+    max-height: 47svh;
+    padding: var(--space-6);
+    gap: var(--space-3);
+  }
+  .story__card--hero {
+    padding: 0;
+    gap: var(--space-4);
+  }
+  .story__card--hero::before {
+    inset: calc(-1 * var(--space-12)) calc(-1 * var(--gutter)) calc(-1 * var(--space-24));
+    background: linear-gradient(to bottom, transparent, var(--bg-base) 35%);
+  }
+  .story__card--reveal {
+    padding: var(--space-8) var(--space-6);
+  }
+  .story__card .t-h3-lg {
+    font-size: var(--fs-2xl);
+  }
+  .story__stats {
+    gap: var(--space-2) var(--space-4);
+  }
+  .story__stat-value {
+    font-size: var(--fs-xl);
+  }
+  .story__cue {
+    display: none;
+  }
+  .story__rail-wrap {
+    top: calc(var(--header-h) + var(--space-2));
+    right: var(--space-1);
+    translate: none;
+  }
+  .story__rail-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Static layout (reduced motion / no WebGL) ---------- */
+.story-static {
+  padding-top: var(--header-h);
+  background: var(--bg-base);
+}
+.story-static__hero {
+  display: grid;
+  gap: var(--space-10);
+  align-items: center;
+  padding-block: var(--space-16) var(--space-12);
+}
+.story-static__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+.story-static__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  background: var(--bg-base);
+}
+.story-static__canvas {
+  position: absolute;
+  inset: 0;
+}
+.story-static__canvas > div {
+  position: absolute !important;
+  inset: 0;
+}
+.story-static__chapters {
+  display: grid;
+  gap: var(--space-6);
+  padding-bottom: var(--section-y);
+}
+.story-static__chapter > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  height: 100%;
+  padding: var(--space-8);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+}
+.story-static__finale {
+  padding-block: var(--section-y);
+  background: var(--bg-ink);
+}
+.story-static__finale-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  text-align: center;
+}
+@media (min-width: 48em) {
+  .story-static__chapters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 64em) {
+  .story-static__hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  }
+  .story-static__chapters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@keyframes story-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+@keyframes story-chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-2)) scale(0.96);
+  }
+}
+@keyframes story-cue {
+  from {
+    transform: translateY(calc(-1 * var(--space-2)));
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(3rem);
+    opacity: 0;
+  }
+}

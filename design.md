@@ -487,6 +487,20 @@ Bottom-left card `--bg-surface`, gold hairline top, 14px text; "Reject non-essen
 ### 6.21 Iconography
 Lucide, stroke 1.5, 20–26px (menu 26). Colors: gold or gold-bright; muted for neutral. Icons used: menu, x, arrow-right, arrow-up-right, map-pin, phone, mail, message-circle, instagram, facebook, linkedin, heart, chevron-down, play.
 
+### 6.23 Home hero story (scroll-built 3D house)  [Derived]
+
+The home page opens with a pinned, scroll-driven story in which a 3D house assembles itself (code: `src/components/home/HeroStory`, `src/three`). It replaces the photographic home hero.
+
+- **Exception to "dark hero first"** [Decision]: the story opens on the ivory canvas (`--bg-base`) with a faint gold survey grid. The route sets `handle.lightHero`, so the header starts in its solid ivory state (§6.2) and stays legible. Inner pages keep dark heroes.
+- **Structure:** a section `(pinned length + 100) svh` tall holding a `position: sticky` 100svh stage. Pinned length is 600vh on desktop and 450vh on mobile. The stage holds the canvas (`aria-hidden`, plus a visually hidden description), the copy overlay, the progress rail and the hand-off seam. GSAP ScrollTrigger (`scrub: 1`) writes progress into a mutable store. Progress is never kept in React state.
+- **Stages:** hero, 01 Location, 02 Structure, 03 Craft, 04 Light, 05 Life (stats from the featured listing), 06 Living, then the reveal ("Your home is already out there."). There is exactly one `<h1>`, in the hero copy. Every stage title is an `<h2>`.
+- **Copy cards:** `--bg-glass` panel, 1px `--border-card`, `--radius-card`, `--shadow-card`, max 27rem. Cards alternate start/end sides and the camera frames the house on the opposite side. Each card enters by rising 48px and leaves by moving up, tied to its stage's scroll window. On mobile, cards sit in the lower ~45% above the action bar and the house sits in the upper ~55%. The reveal card is centred and uses `.theme-dark` on `--bg-glass-dark`.
+- **Progress rail:** right edge, six uppercase micro-labels (`--fs-label`, `--tr-label`) with 9px gold dots on a 1px track. The current stage gets `aria-current="step"`, `--accent-strong` text and a `--gold-bright` dot with `--glow-gold`. Each item is a 44px hit area. On mobile the rail shows dots only.
+- **Spec chips** (desktop, medium/high tier): pill, `--bg-glass`, 1px `--border-card-hover`, an 8px gold-bright dot, a 12px label (600) and a muted detail. They are pinned to the model and hidden when geometry occludes them.
+- **Atmosphere:** the background runs `--bg-base` → `--scene-sky-morning` → `--bg-base` → `--bg-alt` → `--scene-sky-golden` → `--bg-ink` (dusk). The WebGL clear colour uses the same values. On exit an ivory seam rises from the bottom and the canvas fades, so the next section (Curated Opportunities) follows without an edge.
+- **3D palette:** `--scene-*` tokens in `tokens.css`. They are read at runtime and never used for UI. The gold blueprint edges use `--gold`.
+- **Motion:** parts are a pure function of progress, with damped smoothing. The hero copy uses the §9.3 staged rise. Under reduced motion there is no pinning: a static layout shows the finished house on a slow turntable and stacks the same copy. Without WebGL, the poster (`public/house-poster.webp`) replaces the canvas.
+
 ### 6.22 Reference Delta — Components
 _Add component patterns from references 2–5 here._
 

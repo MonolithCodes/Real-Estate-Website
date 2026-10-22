@@ -1,6 +1,6 @@
 import { DestinationGrid } from '../components/sections/DestinationGrid'
 import { FinalCta } from '../components/sections/FinalCta'
-import { Hero } from '../components/sections/Hero'
+import { HeroStory } from '../components/home/HeroStory/HeroStory'
 import { LandBanner } from '../components/sections/LandBanner'
 import { PartnerLogos } from '../components/sections/PartnerLogos'
 import { Pillars } from '../components/sections/Pillars'
@@ -28,10 +28,11 @@ export function Home() {
           email: site.email,
         }}
       />
-      <Hero />
+      <HeroStory />
+      {/* Featured opportunities follow the story directly, so its hand-off lands on the cards. */}
+      <PropertyGrid properties={properties} link={{ to: '/opportunities', label: 'View all' }} />
       <Ticker />
       <StatsStrip />
-      <PropertyGrid properties={properties} link={{ to: '/opportunities', label: 'View all' }} />
       <DestinationGrid />
       <Pillars id="why-heading" eyebrow="Why Buyers Choose Us" title="Advisory first. Always." items={pillars} />
       <LandBanner />
