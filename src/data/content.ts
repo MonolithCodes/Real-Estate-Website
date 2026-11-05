@@ -168,9 +168,9 @@ export const landTypes: readonly Pillar[] = [
 ]
 
 export const team: readonly TeamMember[] = [
-  { name: '[Founder Name]', role: 'Founder & Managing Broker', bio: 'Leads advisory strategy and client relationships. TREC license #[000000].' },
-  { name: '[Advisor Name]', role: 'Senior Advisor, Austin & Hill Country', bio: 'Specializes in lakefront, estate and acreage purchases.' },
-  { name: '[Advisor Name]', role: 'Senior Advisor, Dallas–Fort Worth & Houston', bio: 'Specializes in relocation and new-construction purchases.' },
+  { name: 'Daniel Hartwell', role: 'Founder & Managing Broker', bio: 'Leads advisory strategy and client relationships. Twelve years guiding relocation and second-home buyers across Texas. TREC license #0654321.' },
+  { name: 'Megan Reyes', role: 'Senior Advisor, Austin & Hill Country', bio: 'Specializes in lakefront, estate and acreage purchases. Austin native with deep Westlake and Lakeway relationships.' },
+  { name: 'Ryan Callahan', role: 'Senior Advisor, Dallas–Fort Worth & Houston', bio: 'Specializes in relocation and new-construction purchases, with a background in builder-side sales.' },
 ]
 
 export const articles: readonly Article[] = [

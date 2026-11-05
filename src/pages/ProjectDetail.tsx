@@ -136,7 +136,7 @@ export function ProjectDetail() {
                   </tr>
                 </tbody>
               </table>
-              <p className="t-legal">Sample listing for demonstration. Details, availability and pricing subject to change.</p>
+              <p className="t-legal">Details, availability and pricing are subject to change without notice.</p>
             </Reveal>
           </div>
 

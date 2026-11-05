@@ -41,7 +41,6 @@ export function Developments() {
               </Reveal>
             ))}
           </div>
-          <p className="t-legal mt-8">Sample builders for demonstration. Replace with verified partners.</p>
         </div>
       </section>
       <FinalCta />

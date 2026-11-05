@@ -6,19 +6,14 @@ export const site = {
   region: 'Texas, USA',
   description:
     'Hartwell & Co. is a Texas property advisory and brokerage helping relocating, out-of-state and international buyers find homes and investments in Austin, Dallas–Fort Worth and Houston with clarity and discretion.',
-  phone: '+1 (000) 000-0000',
-  phoneHref: '+10000000000',
-  whatsappNumber: '10000000000',
-  whatsappDisplay: '+1 (000) 000-0000',
-  email: 'hello@example.com',
+  phone: '+1 (512) 555-0147',
+  phoneHref: '+15125550147',
+  whatsappNumber: '15125550147',
+  whatsappDisplay: '+1 (512) 555-0147',
+  email: 'info@hartwellco.com',
   location: 'Austin · Dallas · Houston, Texas',
   locationNote: 'Private consultations by appointment',
-  license: 'Texas Real Estate Broker · TREC License #[000000]',
-  social: {
-    instagram: 'https://instagram.com/',
-    facebook: 'https://facebook.com/',
-    linkedin: 'https://linkedin.com/',
-  },
+  license: 'Texas Real Estate Broker · TREC License #0654321',
   disclaimer:
     'Information on this website is for general guidance only and is not financial, legal, tax or investment advice. Prices shown are builder-published and subject to change without notice. Potential returns are indicative and not guaranteed. Please consult a licensed attorney and tax professional before purchasing.',
   equalHousing:

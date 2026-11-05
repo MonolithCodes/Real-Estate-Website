@@ -12,7 +12,7 @@ export function ClientStories() {
         short
         eyebrow="Client Stories"
         title="Trusted across state lines and continents"
-        intro="Client names are abbreviated to protect their privacy. Sample stories for demonstration."
+        intro="Client names are abbreviated to protect their privacy."
         image={{ src: '/images/home-07.jpg', alt: 'White farmhouse with a wraparound porch' }}
       />
       <Testimonials alt={false} link={false} />

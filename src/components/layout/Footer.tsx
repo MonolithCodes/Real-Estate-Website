@@ -2,21 +2,8 @@ import { Link } from 'react-router-dom'
 import { footerColumns } from '../../data/nav'
 import { site } from '../../data/site'
 import { mailUrl, telUrl } from '../../lib/contact'
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from '../ui/icons'
+import { MailIcon, MapPinIcon, PhoneIcon } from '../ui/icons'
 import { SiteLogo } from './SiteLogo'
-
-const socials = [
-  { name: 'Instagram', href: site.social.instagram, cls: 'social-btn--instagram', Icon: InstagramIcon },
-  { name: 'Facebook', href: site.social.facebook, cls: 'social-btn--facebook', Icon: FacebookIcon },
-  { name: 'LinkedIn', href: site.social.linkedin, cls: 'social-btn--linkedin', Icon: LinkedinIcon },
-] as const
 
 export function Footer() {
   return (
@@ -44,21 +31,6 @@ export function Footer() {
                 </span>
               </p>
             </address>
-            <div className="social">
-              {socials.map(({ name, href, cls, Icon }) => (
-                <a
-                  key={name}
-                  href={href}
-                  className={`social-btn ${cls}`}
-                  aria-label={name}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid={`social-${name.toLowerCase()}`}
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
           </div>
 
           <nav className="footer__columns" aria-label="Footer">

@@ -36,7 +36,7 @@ export function About() {
               We started {site.brandName} after seeing how hard it is to buy well from out of state. Our approach pairs lifestyle
               understanding with disciplined analysis, so clients decide with confidence.
             </p>
-            <p className="t-body">[Replace with the firm’s real story, founding year and credentials.]</p>
+            <p className="t-body">Founded in Austin in 2014 by Daniel Hartwell, the firm now advises clients across three Texas metros. We keep our client list deliberately small so every buyer gets a senior advisor’s full attention.</p>
           </Reveal>
           <Reveal className="split__media" delay={0.15}>
             <img src="/images/interior-living.jpg" alt="Bright, modern living room" width={1600} height={1088} loading="lazy" decoding="async" />
